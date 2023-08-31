@@ -26,9 +26,9 @@ public class InputExample : MonoBehaviour
             Rigidbody rb = spawned.GetComponent<Rigidbody>();
             rb.position = spawnPoint.position;
             rb.velocity = new Vector3(
-                Random.Range(-5.0f, 5.0f), 
-                Random.Range(-5.0f, 5.0f), 
-                Random.Range(-5.0f, 5.0f));
+                Random.Range(0f, 0f), 
+                Random.Range(0f, 0.0f), 
+                Random.Range(0f, 0f));
 
 
 		}
