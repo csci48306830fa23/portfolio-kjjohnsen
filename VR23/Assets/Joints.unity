@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 1195581931}
   - component: {fileID: 1195581930}
   - component: {fileID: 1195581929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,6 +1163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayOrigin: {fileID: 879857756}
   saveMaterial: {fileID: 0}
+  selectCamera: {fileID: 1818228531}
 --- !u!4 &1965012581
 Transform:
   m_ObjectHideFlags: 0

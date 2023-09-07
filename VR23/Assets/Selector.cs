@@ -9,7 +9,8 @@ public class Selector : MonoBehaviour
     [SerializeField]
     Material saveMaterial;
     Transform selectObject; //will be set to any selected object by the raycast
-    
+    [SerializeField]
+    Camera selectCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class Selector : MonoBehaviour
                 rayOrigin.position,
                 rayOrigin.position + rayOrigin.forward * hit.distance,
                 Color.red);
-            Debug.Log(hit.transform.name + " " + hit.distance);
+            //Debug.Log(hit.transform.name + " " + hit.distance);
 
             Renderer r = hit.transform.GetComponent<Renderer>();
             if (r != null)
@@ -35,10 +36,12 @@ public class Selector : MonoBehaviour
                 {   //we had an object
                     selectObject.GetComponent<Renderer>().sharedMaterial = saveMaterial;
                 }
-                //todo, put if statement preventing this from re-executing
-                selectObject = hit.transform;
-                saveMaterial = r.sharedMaterial;
-                r.material.color = Color.red;
+                if (selectObject != hit.transform)
+                {
+                    selectObject = hit.transform;
+                    saveMaterial = r.sharedMaterial;
+                    r.material.color = Color.red;
+                }
             }
 
         }
@@ -54,6 +57,23 @@ public class Selector : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+
+        if (Input.GetMouseButtonDown(0)){ //true for the first frame the mouse button is held down
+            var mousePosition = Input.mousePosition;
+            Debug.Log(mousePosition);
+            var r = selectCamera.ScreenPointToRay(mousePosition);
+            RaycastHit hitInfo;
+            int layerMask = LayerMask.GetMask(new string[] { "Selectable" });
+            if(Physics.Raycast(r,out hitInfo,Mathf.Infinity, layerMask))
+            {
+                Rigidbody rb = hitInfo.rigidbody;
+                if (rb != null)
+                {
+                    GameObject.Destroy(rb.gameObject);
+                }
+            }
+
+        }
         
     }
 }
