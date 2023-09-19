@@ -69,6 +69,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.2",
       "depth": 1,
@@ -174,6 +181,16 @@
         "com.unity.xr.management": "4.2.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "edu.uga.engr.vel.velutils": {
+      "version": "3.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.0-preview",
+        "com.unity.xr.legacyinputhelpers": "2.1.7"
+      },
+      "url": "https://npm.ugavel.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
