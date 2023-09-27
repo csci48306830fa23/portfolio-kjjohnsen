@@ -7,7 +7,7 @@ public class HoleTrigger : MonoBehaviour
     [SerializeField]
     Skeeball machine;
 
-    public float pointValue;
+    public int pointValue;
     // Start is called before the first frame update
     void Start()
     {
