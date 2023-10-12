@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.meta.xr.sdk.utilities": "57.0.0-preview",
     "com.unity.collab-proxy": "2.0.5",
     "com.unity.feature.development": "1.0.1",
     "com.unity.inputsystem": "1.6.3",
@@ -48,6 +49,13 @@
       "url": "https://npm.ugavel.com",
       "scopes": [
         "edu.uga"
+      ]
+    },
+    {
+      "name": "Meta",
+      "url": "https://npm.developer.oculus.com",
+      "scopes": [
+        "com.meta"
       ]
     }
   ]
