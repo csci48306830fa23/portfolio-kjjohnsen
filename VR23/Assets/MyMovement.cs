@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 using VelUtils;
 
 public class MyMovement : MonoBehaviour
@@ -27,8 +28,11 @@ public class MyMovement : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+		if (XRDevice.refreshRate != 0)
+		{
+			Time.fixedDeltaTime = 1 / XRDevice.refreshRate;
+		}
+	}
 
     // Update is called once per frame
     void Update()
