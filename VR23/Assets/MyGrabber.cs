@@ -16,18 +16,25 @@ public class MyGrabber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-	private void OnTriggerStay(Collider other)
-	{
-        MyGrabbable grabbable = other.attachedRigidbody?.GetComponent<MyGrabbable>();
-        if (grabbable != null && grabbable.grabbedBy != this)
+        if(InputMan.GripDown(side))
         {
-            if (InputMan.GripDown(side))
+            Collider[] collisions = Physics.OverlapSphere(transform.position, .05f);
+            foreach(Collider collision in collisions)
             {
-                grabbable.handleGrab(this);
+                MyGrabbable grabbable = collision.gameObject.GetComponent<MyGrabbable>();
+                if(grabbable && !grabbed)
+                {
+                    grabbable.handleGrab(this);
+                    grabbed = grabbable;
+                }
             }
         }
-	}
+
+
+        if(InputMan.GripUp(side))
+        {
+            grabbed.handleRelease();
+            grabbed = null;
+        }
+    }
 }
