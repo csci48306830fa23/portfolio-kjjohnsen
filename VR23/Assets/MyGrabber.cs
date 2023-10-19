@@ -7,6 +7,8 @@ public class MyGrabber : MonoBehaviour
 {
     public Side side;
     public MyGrabbable grabbed; //will be null if not grabbed
+    public MyGrabbable handGrabbed;
+    public OVRHand myHand;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,34 @@ public class MyGrabber : MonoBehaviour
         {
             grabbed.handleRelease();
             grabbed = null;
+        }
+
+        if(handGrabbed == null && myHand.GetFingerIsPinching(OVRHand.HandFinger.Index))
+        {
+			Collider[] collisions = Physics.OverlapSphere(transform.position, .05f);
+			foreach (Collider collision in collisions)
+			{
+				MyGrabbable grabbable = collision.gameObject.GetComponent<MyGrabbable>();
+				if (grabbable && !grabbed)
+				{
+					grabbable.handleGrab(this);
+					handGrabbed = grabbable;
+				}
+			}
+		}
+
+        if(handGrabbed != null)
+        {
+            if (!myHand.IsTracked)
+            {
+                handGrabbed.handleRelease();
+                handGrabbed = null;
+            }else if (!myHand.GetFingerIsPinching(OVRHand.HandFinger.Index))
+            {
+				handGrabbed.handleRelease();
+				handGrabbed = null;
+			}
+
         }
     }
 }
