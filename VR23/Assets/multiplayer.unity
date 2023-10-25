@@ -189,6 +189,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 139638184}
+    - targetCorrespondingSourceObject: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 139638186}
   m_SourcePrefab: {fileID: 100100000, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
 --- !u!4 &139638180 stripped
 Transform:
@@ -251,6 +254,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &139638186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139638181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18770c51169c964c8b96e9501f7bc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 139638182}
 --- !u!1001 &232623797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,7 +535,8 @@ MonoBehaviour:
   autoLogin: 1
   onlyConnectToSameVersion: 1
   connected: 0
-  prefabs: []
+  prefabs:
+  - {fileID: 2381486213069710720, guid: ec19f7edb84c1e34ba603d7c3b92bd63, type: 3}
   sceneObjects: []
   deletedSceneObjects: []
 --- !u!4 &250682012
@@ -549,7 +566,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4339c1b0eaf13418c66b654a47c6df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rig: {fileID: 232623805}
   roomToJoin: default
+  playerPrefab: {fileID: 8407718384887800547, guid: ec19f7edb84c1e34ba603d7c3b92bd63, type: 3}
+  player: {fileID: 0}
 --- !u!1 &263615371
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +962,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1429443813}
+    - targetCorrespondingSourceObject: {fileID: 112276, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1429443815}
   m_SourcePrefab: {fileID: 100100000, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
 --- !u!4 &1429443809 stripped
 Transform:
@@ -1004,6 +1027,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1429443815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429443810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18770c51169c964c8b96e9501f7bc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 1429443811}
 --- !u!1 &1433826997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,8 +1085,8 @@ GameObject:
   - component: {fileID: 1784475966}
   - component: {fileID: 1784475965}
   - component: {fileID: 1784475964}
-  - component: {fileID: 1784475971}
   - component: {fileID: 1784475970}
+  - component: {fileID: 1784475971}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1227,21 +1263,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1784475963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951f5c5e2245481d8f969b94f998c78b, type: 3}
+  m_Script: {fileID: 11500000, guid: 30ca79a622204214080d42193f593323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   networkObject: {fileID: 1784475970}
-  serializationRateHz: 10
+  serializationRateHz: 30
   hybridOnChangeCompression: 1
-  useLocalTransform: 0
-  minPosDelta: 0.01
-  minAngleDelta: 0.1
-  minVelDelta: 0.01
-  minAngVelDelta: 0.1
-  syncKinematic: 1
-  syncGravity: 1
-  syncVelocity: 1
-  syncAngularVelocity: 1
 --- !u!1 &1832983139
 GameObject:
   m_ObjectHideFlags: 0
