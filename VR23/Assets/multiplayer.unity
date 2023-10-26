@@ -575,6 +575,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 8407718384887800547, guid: ec19f7edb84c1e34ba603d7c3b92bd63, type: 3}
   player: {fileID: 0}
   infoText: {fileID: 733632273}
+  avatar_url: 
 --- !u!114 &250682014
 MonoBehaviour:
   m_ObjectHideFlags: 0

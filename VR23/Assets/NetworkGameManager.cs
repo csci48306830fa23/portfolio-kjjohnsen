@@ -12,13 +12,18 @@ public class NetworkGameManager : MonoBehaviour
     public MyNetworkPlayer playerPrefab;
     public MyNetworkPlayer player;
     public TMP_Text infoText;
+    public string avatar_url="";
     // Start is called before the first frame update
     void Start()
     {
 
         infoText.text = ""+VELConnectManager.PairingCode;
         VELConnectManager.AddDeviceDataListener("avatar_url", this, (avatar_url) => {
-            infoText.text = avatar_url;
+            this.avatar_url = avatar_url;
+            if(player != null)
+            {
+                player.setAvatar(avatar_url);
+            }
         }, true);
         VelNetManager.OnLoggedIn += () =>
         {
@@ -31,6 +36,10 @@ public class NetworkGameManager : MonoBehaviour
             //instantiate the player prefab
             player = VelNetManager.NetworkInstantiate(playerPrefab.name).GetComponent<MyNetworkPlayer>();
             player.r = rig;
+            if(avatar_url != "")
+            {
+                player.setAvatar(avatar_url);
+            }
 
         };
 

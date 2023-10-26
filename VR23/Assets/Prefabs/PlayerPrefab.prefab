@@ -356,6 +356,7 @@ MonoBehaviour:
   - {fileID: 2502355335376541949}
   - {fileID: 4700106610998777686}
   - {fileID: 3184849356436270161}
+  - {fileID: 8407718384887800547}
   - {fileID: 1385168303563915328}
 --- !u!114 &1385168303563915328
 MonoBehaviour:
@@ -390,10 +391,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b827ac65163ea43b32d06bfbc41c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObject: {fileID: 2381486213069710720}
+  serializationRateHz: 30
+  hybridOnChangeCompression: 1
   head: {fileID: 3324334262413460091}
   leftHand: {fileID: 4240645901987792563}
   rightHand: {fileID: 198932325134981284}
+  avatarURL: 
   r: {fileID: 0}
+  avatar: {fileID: 0}
 --- !u!1 &7888344759296837356
 GameObject:
   m_ObjectHideFlags: 0
