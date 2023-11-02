@@ -1,4 +1,4 @@
-using Siccity.GLTFUtility;
+//using Siccity.GLTFUtility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +38,7 @@ public class TestGLTF : MonoBehaviour
 				case UnityWebRequest.Result.Success:
 					Debug.Log("nReceived: " + webRequest.downloadHandler.data.Length);
 
-					GameObject avatar = Importer.LoadFromBytes(webRequest.downloadHandler.data);
+					//GameObject avatar = Importer.LoadFromBytes(webRequest.downloadHandler.data);
 
 					break;
 			}

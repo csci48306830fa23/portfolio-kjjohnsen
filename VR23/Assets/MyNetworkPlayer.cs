@@ -1,4 +1,4 @@
-using Siccity.GLTFUtility;
+//using Siccity.GLTFUtility;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,36 +6,45 @@ using UnityEngine;
 using UnityEngine.Networking;
 using VelNet;
 using VelUtils;
+using GLTFast;
+
 [RequireComponent(typeof(NetworkObject))]
 public class MyNetworkPlayer : SyncState
 {
-    public Transform head;
-    public Transform leftHand;
-    public Transform rightHand;
-    NetworkObject networkObj;
-    public string avatarURL = "";
-    public Rig r;
-    public GameObject avatar;
-    // Start is called before the first frame update
-    void Start()
-    {
-        networkObj = GetComponent<NetworkObject>();
-    }
+	public Transform head;
+	public Transform headOffset;
+	public Transform leftHand;
+	public Transform rightHand;
+	public Transform leftHandOffset;
+	public Transform rightHandOffset;
+	bool leftGrip = false;
+	bool rightGrip = false;
+	NetworkObject networkObj;
+	public string avatarURL = "";
+	public Rig r;
+	public GameObject avatar;
+	public RuntimeAnimatorController controller;
+	// Start is called before the first frame update
+	void Start()
+	{
+		networkObj = GetComponent<NetworkObject>();
 
-    public void setAvatar(string avatarURL)
-    {
-        this.avatarURL = avatarURL;
-        StartCoroutine(downloadAvatar());
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	public void setAvatar(string avatarURL)
+	{
+		this.avatarURL = avatarURL;
+		StartCoroutine(downloadAvatar());
+	}
 
-        if (networkObj.IsMine)
-        {
-            if(r != null)
-            {
+	// Update is called once per frame
+	void LateUpdate()
+	{
+
+		if (networkObj.IsMine)
+		{
+			if (r != null)
+			{
 				this.transform.position = r.transform.position;
 				this.transform.rotation = r.transform.rotation;
 				head.position = r.head.position;
@@ -44,12 +53,17 @@ public class MyNetworkPlayer : SyncState
 				leftHand.rotation = r.leftHand.rotation;
 				rightHand.position = r.rightHand.position;
 				rightHand.rotation = r.rightHand.rotation;
-            }
-        }
-        else
-        {
 
-        }
+				leftGrip = InputMan.Grip(Side.Left);
+				rightGrip = InputMan.Grip(Side.Right);
+
+
+			}
+		}
+		else
+		{
+
+		}
 
 		if (avatar != null)
 		{
@@ -59,12 +73,6 @@ public class MyNetworkPlayer : SyncState
 			Transform headAvatar = avatar.transform.Find("Hips/Spine/Neck/Head");
 			Transform leftHandAvatar = avatar.transform.Find("Hips/Spine/LeftHand");
 			Transform rightHandAvatar = avatar.transform.Find("Hips/Spine/RightHand");
-			//headAvatar.transform.position = head.position;
-			//headAvatar.transform.rotation = head.rotation;
-			//leftHandAvatar.transform.position = leftHand.position;
-			//leftHandAvatar.transform.rotation = leftHand.rotation;
-			//rightHandAvatar.transform.position = rightHand.position;
-			//rightHandAvatar.transform.rotation = rightHand.rotation;
 
 			headAvatar.rotation = head.rotation; //first set the head rotation
 
@@ -83,18 +91,20 @@ public class MyNetworkPlayer : SyncState
 			}
 
 
-			Vector3 pos = (leftEyeAvatar.position + rightEyeAvatar.position) / 2; //this is where the eyes are at currently
-			Vector3 offset = head.position - pos; //this is the vector that would move the eye position to hmd position
+			Vector3 pos = (leftEyeAvatar.position + rightEyeAvatar.position) / 2; //this is where the HMD should be
+			Vector3 offset = headOffset.position - pos; //this is the vector that would move the hmd into position
+
 
 			avatar.transform.position += offset;
 
-			
+			leftHandAvatar.position = leftHandOffset.position;
+			rightHandAvatar.position = rightHandOffset.position;
+			leftHandAvatar.rotation = leftHandOffset.rotation;
+			rightHandAvatar.rotation = rightHandOffset.rotation;
 
-			leftHandAvatar.position = leftHand.position;
-			rightHandAvatar.position = rightHand.position;
-			leftHandAvatar.rotation = leftHand.rotation;
-			rightHandAvatar.rotation = rightHand.rotation;
-
+			var animator = this.GetComponent<Animator>();
+			animator.SetBool("CloseHandRight", rightGrip);
+			animator.SetBool("CloseHandLeft", leftGrip);
 
 		}
 
@@ -102,54 +112,53 @@ public class MyNetworkPlayer : SyncState
 
 	protected override void SendState(BinaryWriter binaryWriter)
 	{
-        binaryWriter.Write(avatarURL);
+		binaryWriter.Write(avatarURL);
+		binaryWriter.Write(leftGrip);
+		binaryWriter.Write(rightGrip);
 	}
 
 	protected override void ReceiveState(BinaryReader binaryReader)
 	{
-        string target_avatarURL = binaryReader.ReadString();
-        if(target_avatarURL != avatarURL)
-        {
-            avatarURL = target_avatarURL;
-            //load the avatar
-            StartCoroutine(downloadAvatar());
-        }
+		string target_avatarURL = binaryReader.ReadString();
+		if (target_avatarURL != avatarURL)
+		{
+			avatarURL = target_avatarURL;
+			//load the avatar
+			StartCoroutine(downloadAvatar());
+		}
+		leftGrip = binaryReader.ReadBoolean();
+		rightGrip = binaryReader.ReadBoolean();
 	}
 
 
 	IEnumerator downloadAvatar()
 	{
-        if (avatar != null)
-        {
-            GameObject.Destroy(avatar);
-            avatar = null;
-        }
-		using (UnityWebRequest webRequest = UnityWebRequest.Get(avatarURL))
+
+		if (avatar != null)
 		{
-			// Request and wait for the desired page.
-			yield return webRequest.SendWebRequest();
-
-
-			switch (webRequest.result)
-			{
-				case UnityWebRequest.Result.ConnectionError:
-				case UnityWebRequest.Result.DataProcessingError:
-					Debug.LogError("Error: " + webRequest.error);
-					break;
-				case UnityWebRequest.Result.ProtocolError:
-					Debug.LogError("HTTP Error: " + webRequest.error);
-					break;
-				case UnityWebRequest.Result.Success:
-					Debug.Log("nReceived: " + webRequest.downloadHandler.data.Length);
-
-					avatar = Importer.LoadFromBytes(webRequest.downloadHandler.data);
-                    rigAvatar();
-					break;
-			}
+			GameObject.Destroy(avatar);
+			avatar = null;
 		}
-	}
-    void rigAvatar()
-    {
+		GltfAsset gltf = gameObject.AddComponent<GltfAsset>();
+		ImportSettings importSettings = new ImportSettings();
+		importSettings.AnimationMethod = AnimationMethod.Mecanim;
+		gltf.ImportSettings = importSettings;
 
-    }
+		var t = gltf.Load(avatarURL);
+		while (!t.IsCompleted)
+		{
+			yield return null;
+		}
+		avatar = this.transform.Find("AvatarRoot").gameObject;
+		this.GetComponent<Animator>().runtimeAnimatorController = controller;
+
+
+		yield return null;
+
+
+	}
+	void rigAvatar()
+	{
+
+	}
 }
