@@ -236,7 +236,7 @@
       "url": "https://npm.ugavel.com"
     },
     "edu.uga.engr.vel.velnet": {
-      "version": "1.3.0",
+      "version": "1.3.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

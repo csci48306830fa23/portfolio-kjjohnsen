@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 250682011}
   - component: {fileID: 250682013}
   - component: {fileID: 250682014}
+  - component: {fileID: 250682015}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -726,6 +727,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velConnectUrl: https://velconnect2.ugavel.com
+--- !u!114 &250682015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250682010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798d4aea9be4cfc4297706b051a11b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  silenceThreshold: 0
+  minSilencePacketsToStop: 10
+  autostartMicrophone: 1
 --- !u!1 &263615371
 GameObject:
   m_ObjectHideFlags: 0
