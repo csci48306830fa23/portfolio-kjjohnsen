@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using VELConnect;
 using VelNet;
+using VELShareUnity;
 using VelUtils;
 public class NetworkGameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class NetworkGameManager : MonoBehaviour
     public MyNetworkPlayer player;
     public TMP_Text infoText;
     public string avatar_url="";
+    public WebRTCReceiver videoBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,12 @@ public class NetworkGameManager : MonoBehaviour
                 player.setAvatar(avatar_url);
             }
         }, true);
+
+        VELConnectManager.AddDeviceDataListener("streamer_stream_id", this, (stream_id) =>
+        {
+            videoBoard.streamRoom = stream_id;
+            videoBoard.Startup(videoBoard.streamRoom);
+        }, false);
         VelNetManager.OnLoggedIn += () =>
         {
             VelNetManager.JoinRoom(roomToJoin);
