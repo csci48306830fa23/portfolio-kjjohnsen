@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
 		VELConnectManager.AddDeviceDataListener("streamer_stream_id", this, (stream_id) =>
 		{
+			videoBoard.GetComponent<NetworkObject>().TakeOwnership();
 			videoBoard.streamRoom = stream_id;
 			videoBoard.Startup(videoBoard.streamRoom);
 		}, false);
