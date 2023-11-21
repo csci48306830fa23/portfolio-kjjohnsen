@@ -3386,7 +3386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5515094c5c544b6b8ed7fd51a86548d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownershipLocked: 0
+  ownershipLocked: 1
   networkId: 
   sceneNetworkId: 0
   prefabName: 

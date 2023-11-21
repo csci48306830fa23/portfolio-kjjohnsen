@@ -137,6 +137,8 @@ PlayerSettings:
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 11400000, guid: 54ea0a6ba32c27945bf0a8a8954113ab, type: 2}
+  - {fileID: 11400000, guid: 51322dd04bf74904684dacebd6f23c25, type: 2}
+  - {fileID: 5652525932552050706, guid: f58c6d3552a53614fbd26e0f5fe2b0a7, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -163,7 +165,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 18
+  AndroidBundleVersionCode: 20
   AndroidMinSdkVersion: 31
   AndroidTargetSdkVersion: 32
   AndroidPreferredInstallLocation: 0
@@ -733,7 +735,8 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: SSL
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
