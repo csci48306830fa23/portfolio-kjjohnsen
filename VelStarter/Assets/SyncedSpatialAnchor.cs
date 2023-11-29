@@ -111,7 +111,7 @@ public class SyncedSpatialAnchor : SyncState
 
 	IEnumerator createAnchor()
 	{
-		requestedShares.Clear();
+		
 		yield return StartCoroutine(eraseAnchor());
 
 		OVRSpatialAnchor anchor = moveable.AddComponent<OVRSpatialAnchor>();
@@ -136,6 +136,7 @@ public class SyncedSpatialAnchor : SyncState
 
 			
 		}
+		requestedShares.Clear(); //time to update everyone
 
 
 		yield return null;
@@ -161,19 +162,22 @@ public class SyncedSpatialAnchor : SyncState
 		
 		
 
-
+		
 		MetaIDSync[] playerSyncIDs = FindObjectsOfType<MetaIDSync>();
 		foreach(var p in playerSyncIDs)
 		{
-			if (p.networkObject.IsMine || !moveable.GetComponent<NetworkObject>().IsMine)
+			if (p.MetaID == 0 || p.networkObject.IsMine || !moveable.GetComponent<NetworkObject>().IsMine)
 			{
 				continue;
 			}
+
 			if (!requestedShares.Contains(p.MetaID))
 			{
 				OVRSpaceUser user = new OVRSpaceUser(p.MetaID);
-				moveable.GetComponent<OVRSpatialAnchor>().ShareAsync(user);
+				
+				anchor.ShareAsync(user);
 				requestedShares.Add(p.MetaID);
+				
 			}
 		}
     }
