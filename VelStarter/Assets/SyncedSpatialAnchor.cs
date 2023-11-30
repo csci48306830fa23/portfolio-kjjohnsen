@@ -46,8 +46,9 @@ public class SyncedSpatialAnchor : SyncState
 		moveable.Grabbed += () =>
 		{
 			this.networkObject.TakeOwnership();
-
+			network_uuid = ""; //will not try to find the anchor now
 			StartCoroutine(eraseAnchor()); //you can't move the anchor until it's deleted
+			
 
 		};
 		moveable.Released += () =>
@@ -76,10 +77,12 @@ public class SyncedSpatialAnchor : SyncState
 				options.Uuids = new System.Guid[] { System.Guid.Parse(network_uuid) };
 				var t = OVRSpatialAnchor.LoadUnboundAnchorsAsync(options);
 				yield return new WaitUntil(() => t.IsCompleted);
+
+				text.text = "Finished loading anchor";
 				var anchors = t.GetResult();
-				text.text = "Result of Anchor loading: " +anchors.Length;
 				
-				if (anchors.Length > 0)
+				
+				if (anchors != null && anchors.Length > 0)
 				{
 					text.text = "Localizing anchor";
 					var t2 = anchors[0].LocalizeAsync();
