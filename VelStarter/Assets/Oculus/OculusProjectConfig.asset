@@ -19,7 +19,7 @@ MonoBehaviour:
   handTrackingVersion: 2
   multimodalHandsControllersSupport: 1
   anchorSupport: 1
-  sharedAnchorSupport: 1
+  sharedAnchorSupport: 2
   renderModelSupport: 0
   trackedKeyboardSupport: 0
   bodyTrackingSupport: 0
