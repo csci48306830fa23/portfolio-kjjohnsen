@@ -63,6 +63,7 @@ Shader "Unlit/SingleEye"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
                 // sample the texture
                 fixed4 left = tex2D(_LeftTex, i.uv);
                 fixed4 right = tex2D(_RightTex, i.uv1);
